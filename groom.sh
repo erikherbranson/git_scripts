@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # This script will delete all local branches that are merged into the target branch and prune remote referrences.
-# If you renamed your remote to something other than origin you'll need to update line 31
+# If you renamed your remote to something other than origin you'll need to update line 32
 
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 TARGET_BRANCH=development
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 EMPTY_LINE=""
 TOTAL_BRANCHES_TO_DELETE=$(git branch --merged | egrep -v "(^\*|master|development|release)" | wc -l )
 
