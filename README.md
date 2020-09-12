@@ -2,13 +2,13 @@
 
 A collection of Git scripts to handle common tasks during development
 
-# Groom script
+## `groom.sh`
 
-## Description
+### Description
 
 This script is used for when you need to clean up your local git repository. It will delete all local branches merged into the target branch that you set. It will also delete references to remote branches that don't exist anymore.
 
-## Configuration
+### Configuration
 
 ```
 TARGET_BRANCH=development
@@ -22,7 +22,7 @@ git remote prune origin
 
 This script assumes that you didn't rename your git remote. If you did, you'll need to update this line to match the renamed remote.
 
-## Usage
+### Usage
 
 ![groom-1 image](https://res.cloudinary.com/dtryqekz1/image/upload/v1599865024/groom-1_wxr4t4.png)
 
