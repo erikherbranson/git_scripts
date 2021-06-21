@@ -1,29 +1,34 @@
-# git_scripts
+# gitm
+
+Git Manager
 
 A collection of Git scripts to handle common tasks during development
 
-## `groom.sh`
-
-### Description
-
-This script is used for when you need to clean up your local git repository. It will delete all local branches merged into the target branch that you set. It will also delete references to remote branches that don't exist anymore.
-
-### Configuration
+## Setup
 
 ```
-TARGET_BRANCH=development
+# Download the gitm file and make it executable
+$ chmod +x gitm
+
+# Then move it somewhere in your $PATH. Here is an example:
+$ mv gitm ~/bin/
 ```
 
-Make sure to set your target branch if you're using a different branch other than development. (While it's not necessary to run the script, it helps the prompt stay consistent and keep you from accidentally deleting valuable branches)
+## Options
 
-```
-git remote prune origin
-```
+### `-g, --groom`
 
-This script assumes that you didn't rename your git remote. If you did, you'll need to update this line to match the renamed remote.
+This option is used for when you need to clean up your local git repo. Remove old git artifacts.
 
-### Usage
+What it does:
 
-![groom-1 image](https://res.cloudinary.com/dtryqekz1/image/upload/v1599865024/groom-1_wxr4t4.png)
+- deletes all local branches merged into the current branch that you're on
+- deletes references to remote branches that don't exist anymore
 
-![groom-2 image](https://res.cloudinary.com/dtryqekz1/image/upload/v1599865024/groom-2_rpgtnz.png)
+### `-h, --help`
+
+Print out the options for usage
+
+### `--version`
+
+Prints out the version number

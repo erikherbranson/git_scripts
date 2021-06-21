@@ -1,0 +1,70 @@
+#!/bin/bash
+
+VERSION=2.0.0
+
+usage() {
+  cat <<EOF
+
+NAME
+  gitm - Git Manager
+
+DESCRIPTION
+  A collection of Git scripts to handle common tasks during development
+
+  The following options are available
+
+  -g, --groom    Delete all local branches that are merged into the current branch and prune remote referrences.
+  -h, --help     Prints out description and avaliable options
+  --version      Prints out the current version
+
+EOF
+}
+
+groom() {
+# This method will delete all local branches that are merged into the current branch and prune remote referrences.
+# If you renamed your remote to something other than origin you'll need to update line 32
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TOTAL_BRANCHES_TO_DELETE=$(git branch --merged | egrep -v "(^\*|master|development|release)" | wc -l )
+
+cat <<EOF
+
+----------------------------------------
+WARNING:
+
+This action will delete all branches merged into your current branch.
+
+Your current branch is: $CURRENT_BRANCH
+
+Total branches to delete: $TOTAL_BRANCHES_TO_DELETE
+----------------------------------------
+
+EOF
+
+echo -n "Proceed? [y/n] "
+read -n 1 ans
+echo " "
+
+if [ "$ans" == "y" ]
+then
+  echo "Deleting local branches..."
+  git branch --merged | egrep -v "(^\*|master|development|release)" | xargs git branch -d
+
+  echo "Pruning remote branches..."
+  git remote prune origin
+else
+  echo "Cancelled action"
+fi
+}
+
+main() {
+
+  case "$1" in
+      --help | -h) usage && exit ;;
+      --groom | -g) groom && exit ;;
+      --version) echo "$VERSION" && exit ;;
+      -*) echo "option '$1' does not exist" ;;
+  esac
+  
+}
+
+main "$@"
